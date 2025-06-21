@@ -19,7 +19,9 @@ dotnet run
 
 ## Frontend
 
-The frontend is a minimal Vue 3 app powered by Vite. To start the development server:
+The frontend is a Vue 3 app powered by Vite with a simple UI for entering time entries
+and viewing project reports. To start the development server:
+
 
 ```bash
 cd frontend
@@ -30,3 +32,10 @@ npm run dev
 ## Database
 
 The connection string is configured in `TimeSheetApi/appsettings.json`. By default it uses the local SQL Server instance `(localdb)`.
+
+
+## Reports API
+
+The backend exposes `/api/reports/projects` which returns aggregated hours,
+cost, revenue and profit for each project based on submitted time entries.
+
