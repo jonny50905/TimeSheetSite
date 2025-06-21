@@ -1,30 +1,37 @@
 <template>
   <div>
     <h2>Projects</h2>
-    <form @submit.prevent="addProject">
-      <label>
-        客戶
-        <input v-model="project.client" required />
-      </label>
-      <label>
-        專案名稱
-        <input v-model="project.name" required />
-      </label>
-      <label>
-        起始日
-        <input type="date" v-model="project.startDate" required />
-      </label>
-      <label>
-        結束日
-        <input type="date" v-model="project.endDate" required />
-      </label>
-      <label>
-        金額
-        <input type="number" step="0.01" v-model.number="project.amount" required />
-      </label>
-      <button type="submit">Add</button>
+    <form class="row g-2 mb-3" @submit.prevent="addProject">
+      <div class="col-md-2">
+        <label class="form-label">客戶
+          <input class="form-control" v-model="project.client" required />
+        </label>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">專案名稱
+          <input class="form-control" v-model="project.name" required />
+        </label>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">起始日
+          <input class="form-control" type="date" v-model="project.startDate" required />
+        </label>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">結束日
+          <input class="form-control" type="date" v-model="project.endDate" required />
+        </label>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">金額
+          <input class="form-control" type="number" step="0.01" v-model.number="project.amount" required />
+        </label>
+      </div>
+      <div class="col-md-1 align-self-end">
+        <button class="btn btn-primary" type="submit">Add</button>
+      </div>
     </form>
-    <table v-if="projects.length">
+    <table v-if="projects.length" class="table table-bordered">
       <thead>
         <tr>
           <th>客戶</th>
@@ -71,21 +78,4 @@ onMounted(load)
 </script>
 
 <style scoped>
-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-label {
-  display: flex;
-  flex-direction: column;
-}
-table {
-  border-collapse: collapse;
-}
-th, td {
-  border: 1px solid #ccc;
-  padding: 4px 8px;
-}
 </style>

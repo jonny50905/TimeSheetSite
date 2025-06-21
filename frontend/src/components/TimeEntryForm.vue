@@ -1,30 +1,37 @@
 <template>
-  <form @submit.prevent="submitEntry">
-    <label>
-      Employee
-      <select v-model="entry.employeeId" required>
-        <option :value="e.id" v-for="e in employees" :key="e.id">{{ e.name }}</option>
-      </select>
-    </label>
-    <label>
-      Project
-      <select v-model="entry.projectId" required>
-        <option :value="p.id" v-for="p in projects" :key="p.id">{{ p.name }}</option>
-      </select>
-    </label>
-    <label>
-      Date
-      <input type="date" v-model="entry.date" required />
-    </label>
-    <label>
-      Hours
-      <input type="number" step="0.1" v-model="entry.hours" required />
-    </label>
-    <label>
-      Notes
-      <input type="text" v-model="entry.notes" />
-    </label>
-    <button type="submit">Add Entry</button>
+  <form class="row g-2 mb-3" @submit.prevent="submitEntry">
+    <div class="col-md-2">
+      <label class="form-label">Employee
+        <select class="form-select" v-model="entry.employeeId" required>
+          <option :value="e.id" v-for="e in employees" :key="e.id">{{ e.name }}</option>
+        </select>
+      </label>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Project
+        <select class="form-select" v-model="entry.projectId" required>
+          <option :value="p.id" v-for="p in projects" :key="p.id">{{ p.name }}</option>
+        </select>
+      </label>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Date
+        <input class="form-control" type="date" v-model="entry.date" required />
+      </label>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Hours
+        <input class="form-control" type="number" step="0.1" v-model="entry.hours" required />
+      </label>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Notes
+        <input class="form-control" type="text" v-model="entry.notes" />
+      </label>
+    </div>
+    <div class="col-md-1 align-self-end">
+      <button class="btn btn-primary" type="submit">Add Entry</button>
+    </div>
   </form>
 </template>
 
@@ -53,14 +60,4 @@ async function submitEntry() {
 </script>
 
 <style scoped>
-form {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
-}
-label {
-  display: flex;
-  flex-direction: column;
-}
 </style>

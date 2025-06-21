@@ -1,63 +1,50 @@
 <template>
-  <h1>TimeSheet App</h1>
-
-  <TimeEntryForm @added="loadEntries" />
-  <h2>Entries</h2>
-  <table v-if="entries.length">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Employee</th>
-        <th>Project</th>
-        <th>Hours</th>
-        <th>Notes</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="e in entries" :key="e.id">
-        <td>{{ e.date.substring(0,10) }}</td>
-        <td>{{ e.employee?.name }}</td>
-        <td>{{ e.project?.name }}</td>
-        <td>{{ e.hours }}</td>
-        <td>{{ e.notes }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h2>Project Report</h2>
-  <ProjectReport />
-
-  <ProjectManager />
-  <EmployeeManager />
-
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+      <aside class="col-3 col-md-2 bg-light p-0">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item" v-for="item in menu" :key="item.key">
+            <a
+              href="#"
+              class="nav-link"
+              :class="{ active: current === item.key }"
+              @click.prevent="current = item.key"
+            >{{ item.label }}</a>
+          </li>
+        </ul>
+      </aside>
+      <main class="col-9 col-md-10 p-3">
+        <component :is="currentComponent" />
+      </main>
+    </div>
+  </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import TimeEntryForm from './components/TimeEntryForm.vue'
+import { ref, computed } from 'vue'
+import TimeSheetView from './views/TimeSheetView.vue'
+import EmployeeManager from './components/EmployeeManager.vue'
+import CustomerManager from './components/CustomerManager.vue'
+import ProjectManager from './components/ProjectManager.vue'
 import ProjectReport from './components/ProjectReport.vue'
 
-import EmployeeManager from './components/EmployeeManager.vue'
-import ProjectManager from './components/ProjectManager.vue'
+const menu = [
+  { key: 'employees', label: '管理員工', component: EmployeeManager },
+  { key: 'customers', label: '管理客戶', component: CustomerManager },
+  { key: 'projects', label: '專案管理', component: ProjectManager },
+  { key: 'timesheet', label: 'Timesheet', component: TimeSheetView },
+  { key: 'report', label: 'Report', component: ProjectReport }
+]
 
+const current = ref('timesheet')
 
-const entries = ref([])
-
-async function loadEntries() {
-  entries.value = await fetch('/api/timeentries').then(r => r.json())
-}
-
-onMounted(loadEntries)
+const currentComponent = computed(() => {
+  return menu.find(m => m.key === current.value)?.component || TimeSheetView
+})
 </script>
 
-<style scoped>
-table {
-  border-collapse: collapse;
-  margin-bottom: 1rem;
+<style>
+body {
+  min-height: 100vh;
 }
-th, td {
-  border: 1px solid #ccc;
-  padding: 4px 8px;
-}
-
 </style>
