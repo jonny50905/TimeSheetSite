@@ -20,6 +20,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<TimeSheetContext>();
+    db.Database.EnsureDeleted();
     db.Database.EnsureCreated();
 }
 
