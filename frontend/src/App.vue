@@ -26,16 +26,20 @@
 
   <h2>Project Report</h2>
   <ProjectReport />
+
   <ProjectManager />
   <EmployeeManager />
+
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import TimeEntryForm from './components/TimeEntryForm.vue'
 import ProjectReport from './components/ProjectReport.vue'
+
 import EmployeeManager from './components/EmployeeManager.vue'
 import ProjectManager from './components/ProjectManager.vue'
+
 
 const entries = ref([])
 
