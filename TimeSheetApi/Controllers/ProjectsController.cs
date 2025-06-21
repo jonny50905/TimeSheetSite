@@ -12,7 +12,7 @@ public class ProjectsController(TimeSheetContext context) : ControllerBase
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Project>>> Get() =>
-        await _context.Projects.ToListAsync();
+        await _context.Projects.Include(p => p.Customer).ToListAsync();
 
     [HttpPost]
     public async Task<ActionResult<Project>> Post(Project project)
