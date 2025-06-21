@@ -1,18 +1,22 @@
 <template>
   <div>
     <h2>Employees</h2>
-    <form @submit.prevent="addEmployee">
-      <label>
-        Name
-        <input v-model="employee.name" required />
-      </label>
-      <label>
-        Hourly Rate
-        <input type="number" step="0.01" v-model.number="employee.hourlyRate" required />
-      </label>
-      <button type="submit">Add</button>
+    <form class="row g-2 mb-3" @submit.prevent="addEmployee">
+      <div class="col-auto">
+        <label class="form-label">Name
+          <input class="form-control" v-model="employee.name" required />
+        </label>
+      </div>
+      <div class="col-auto">
+        <label class="form-label">Hourly Rate
+          <input class="form-control" type="number" step="0.01" v-model.number="employee.hourlyRate" required />
+        </label>
+      </div>
+      <div class="col-auto align-self-end">
+        <button class="btn btn-primary" type="submit">Add</button>
+      </div>
     </form>
-    <table v-if="employees.length">
+    <table v-if="employees.length" class="table table-bordered">
       <thead>
         <tr>
           <th>Id</th>
@@ -55,21 +59,4 @@ onMounted(load)
 </script>
 
 <style scoped>
-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-label {
-  display: flex;
-  flex-direction: column;
-}
-table {
-  border-collapse: collapse;
-}
-th, td {
-  border: 1px solid #ccc;
-  padding: 4px 8px;
-}
 </style>

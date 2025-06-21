@@ -1,8 +1,10 @@
 <template>
   <div>
-    <button @click="load">Load Reports</button>
-    <button @click="exportCsv" :disabled="reports.length === 0">Export CSV</button>
-    <table v-if="reports.length">
+    <div class="mb-2">
+      <button class="btn btn-secondary me-2" @click="load">Load Reports</button>
+      <button class="btn btn-success" @click="exportCsv" :disabled="reports.length === 0">Export CSV</button>
+    </div>
+    <table v-if="reports.length" class="table table-bordered">
       <thead>
         <tr>
           <th>Project</th>
@@ -48,11 +50,4 @@ function exportCsv() {
 </script>
 
 <style scoped>
-table {
-  border-collapse: collapse;
-}
-th, td {
-  border: 1px solid #ccc;
-  padding: 4px 8px;
-}
 </style>
