@@ -4,7 +4,9 @@
     <form class="row g-2 mb-3" @submit.prevent="addProject">
       <div class="col-md-2">
         <label class="form-label">客戶
-          <input class="form-control" v-model="project.client" required />
+          <select class="form-select" v-model="project.customerId" required>
+            <option :value="c.id" v-for="c in customers" :key="c.id">{{ c.name }}</option>
+          </select>
         </label>
       </div>
       <div class="col-md-2">
@@ -43,7 +45,7 @@
       </thead>
       <tbody>
         <tr v-for="p in projects" :key="p.id">
-          <td>{{ p.client }}</td>
+          <td>{{ p.customer?.name }}</td>
           <td>{{ p.name }}</td>
           <td>{{ p.startDate ? p.startDate.substring(0,10) : '' }}</td>
           <td>{{ p.endDate ? p.endDate.substring(0,10) : '' }}</td>
@@ -58,10 +60,12 @@
 import { ref, onMounted } from 'vue'
 
 const projects = ref([])
-const project = ref({ client: '', name: '', startDate: '', endDate: '', amount: 0 })
+const customers = ref([])
+const project = ref({ customerId: '', name: '', startDate: '', endDate: '', amount: 0 })
 
 async function load() {
   projects.value = await fetch('/api/projects').then(r => r.json())
+  customers.value = await fetch('/api/customers').then(r => r.json())
 }
 
 async function addProject() {
@@ -70,7 +74,7 @@ async function addProject() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(project.value)
   })
-  project.value = { client: '', name: '', startDate: '', endDate: '', amount: 0 }
+  project.value = { customerId: '', name: '', startDate: '', endDate: '', amount: 0 }
   load()
 }
 
