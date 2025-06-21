@@ -21,4 +21,17 @@ public class ProjectsController(TimeSheetContext context) : ControllerBase
         await _context.SaveChangesAsync();
         return CreatedAtAction(nameof(Get), new { id = project.Id }, project);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, Project project)
+    {
+        if (id != project.Id) return BadRequest();
+
+        if (!await _context.Projects.AnyAsync(p => p.Id == id))
+            return NotFound();
+
+        _context.Entry(project).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
 }
