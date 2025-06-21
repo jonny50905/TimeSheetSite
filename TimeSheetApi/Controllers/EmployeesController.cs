@@ -21,4 +21,17 @@ public class EmployeesController(TimeSheetContext context) : ControllerBase
         await _context.SaveChangesAsync();
         return CreatedAtAction(nameof(Get), new { id = employee.Id }, employee);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, Employee employee)
+    {
+        if (id != employee.Id) return BadRequest();
+
+        if (!await _context.Employees.AnyAsync(e => e.Id == id))
+            return NotFound();
+
+        _context.Entry(employee).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
 }

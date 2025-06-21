@@ -21,4 +21,17 @@ public class CustomersController(TimeSheetContext context) : ControllerBase
         await _context.SaveChangesAsync();
         return CreatedAtAction(nameof(Get), new { id = customer.Id }, customer);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, Customer customer)
+    {
+        if (id != customer.Id) return BadRequest();
+
+        if (!await _context.Customers.AnyAsync(c => c.Id == id))
+            return NotFound();
+
+        _context.Entry(customer).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
 }

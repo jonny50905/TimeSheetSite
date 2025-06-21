@@ -30,32 +30,63 @@
       </label>
     </div>
     <div class="col-md-1 align-self-end">
-      <button class="btn btn-primary" type="submit">Add Entry</button>
+      <button class="btn btn-primary" type="submit">{{ editing ? 'Save' : 'Add Entry' }}</button>
+      <button v-if="editing" class="btn btn-secondary ms-2" @click="cancelEdit" type="button">Cancel</button>
     </div>
   </form>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 
-const emit = defineEmits(['added'])
+const emit = defineEmits(['added', 'saved', 'cancel'])
+const props = defineProps({ model: Object })
 const employees = ref([])
 const projects = ref([])
 const entry = ref({ employeeId: '', projectId: '', date: '', hours: 0, notes: '' })
+const editing = ref(false)
 
 onMounted(async () => {
   employees.value = await fetch('/api/employees').then(r => r.json())
   projects.value = await fetch('/api/projects').then(r => r.json())
 })
 
+watch(() => props.model, val => {
+  if (val) {
+    entry.value = { employeeId: val.employeeId, projectId: val.projectId, date: val.date.substring(0,10), hours: val.hours, notes: val.notes, id: val.id }
+    editing.value = true
+  } else {
+    reset()
+  }
+}, { immediate: true })
+
 async function submitEntry() {
-  await fetch('/api/timeentries', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(entry.value)
-  })
+  if (editing.value) {
+    await fetch(`/api/timeentries/${entry.value.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(entry.value)
+    })
+    emit('saved')
+  } else {
+    await fetch('/api/timeentries', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(entry.value)
+    })
+    emit('added')
+  }
+  reset()
+}
+
+function reset() {
   entry.value = { employeeId: '', projectId: '', date: '', hours: 0, notes: '' }
-  emit('added')
+  editing.value = false
+}
+
+function cancelEdit() {
+  reset()
+  emit('cancel')
 }
 </script>
 

@@ -26,4 +26,17 @@ public class TimeEntriesController(TimeSheetContext context) : ControllerBase
         await _context.SaveChangesAsync();
         return CreatedAtAction(nameof(Get), new { id = entry.Id }, entry);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, TimeEntry entry)
+    {
+        if (id != entry.Id) return BadRequest();
+
+        if (!await _context.TimeEntries.AnyAsync(t => t.Id == id))
+            return NotFound();
+
+        _context.Entry(entry).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
 }
