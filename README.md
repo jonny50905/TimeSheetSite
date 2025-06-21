@@ -39,3 +39,7 @@ The connection string is configured in `TimeSheetApi/appsettings.json`. By defau
 The backend exposes `/api/reports/projects` which returns aggregated hours,
 cost, revenue and profit for each project based on submitted time entries.
 
+### Customers API
+
+Basic CRUD operations for customers are available at `/api/customers`.
+
