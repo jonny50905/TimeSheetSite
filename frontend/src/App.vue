@@ -27,14 +27,18 @@
   <h2>Project Report</h2>
   <ProjectReport />
 
+
   <CustomerManager />
+
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import TimeEntryForm from './components/TimeEntryForm.vue'
 import ProjectReport from './components/ProjectReport.vue'
+
 import CustomerManager from './components/CustomerManager.vue'
+
 
 const entries = ref([])
 
