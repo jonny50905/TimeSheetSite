@@ -29,6 +29,8 @@ npm install
 npm run dev
 ```
 
+Bootstrap is installed locally via npm and will be bundled automatically when running the dev or build commands.
+
 ## Database
 
 The connection string is configured in `TimeSheetApi/appsettings.json`. By default it uses the local SQL Server instance `(localdb)`.
