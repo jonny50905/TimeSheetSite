@@ -1,5 +1,6 @@
 <template>
   <h1>TimeSheet App</h1>
+
   <TimeEntryForm @added="loadEntries" />
   <h2>Entries</h2>
   <table v-if="entries.length">
@@ -50,4 +51,5 @@ th, td {
   border: 1px solid #ccc;
   padding: 4px 8px;
 }
+
 </style>
