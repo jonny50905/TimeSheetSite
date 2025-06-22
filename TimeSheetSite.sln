@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSheetApi", "TimeSheetApi\TimeSheetApi.csproj", "{B8A96B69-86E0-4D62-9FBB-B00A9C94A87E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSheetApi.Tests", "TimeSheetApi.Tests\TimeSheetApi.Tests.csproj", "{B12E7170-D132-426F-9B97-9AFB7AFD6A93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{B8A96B69-86E0-4D62-9FBB-B00A9C94A87E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8A96B69-86E0-4D62-9FBB-B00A9C94A87E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8A96B69-86E0-4D62-9FBB-B00A9C94A87E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B12E7170-D132-426F-9B97-9AFB7AFD6A93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B12E7170-D132-426F-9B97-9AFB7AFD6A93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B12E7170-D132-426F-9B97-9AFB7AFD6A93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B12E7170-D132-426F-9B97-9AFB7AFD6A93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
