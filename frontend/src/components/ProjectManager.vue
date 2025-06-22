@@ -79,10 +79,12 @@ function editProject(p) {
 async function saveProject() {
   const url = editingId.value ? `/api/projects/${editingId.value}` : '/api/projects'
   const method = editingId.value ? 'PUT' : 'POST'
+  const payload = { ...project.value }
+  if (editingId.value !== null) payload.id = editingId.value
   await fetch(url, {
     method,
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ...project.value, id: editingId.value })
+    body: JSON.stringify(payload)
   })
   cancelEdit()
   load()
