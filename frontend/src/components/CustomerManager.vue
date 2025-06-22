@@ -61,10 +61,12 @@ function editCustomer(c) {
 async function saveCustomer() {
   const url = editingId.value ? `/api/customers/${editingId.value}` : '/api/customers'
   const method = editingId.value ? 'PUT' : 'POST'
+  const payload = { ...newCustomer.value }
+  if (editingId.value !== null) payload.id = editingId.value
   await fetch(url, {
     method,
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ...newCustomer.value, id: editingId.value })
+    body: JSON.stringify(payload)
   })
   cancelEdit()
   load()
